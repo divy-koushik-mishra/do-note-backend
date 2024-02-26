@@ -2,7 +2,7 @@
 
 ## About Do Note
 
-> Do Note iS a next gen self organizing app where a use can take notes, make todo list, schedule calender, and our **flagship feature** **Planner Pro** helps to manage your day and squeeze out full productivity using the superpowers of **A.I.**
+> Do Note is a next gen self organizing app where a use can take notes, make todo list, schedule calender, and our **flagship feature** **Planner Pro** helps to manage your day and squeeze out full productivity using the superpowers of **A.I.**
 
 ## Getting Started
 
