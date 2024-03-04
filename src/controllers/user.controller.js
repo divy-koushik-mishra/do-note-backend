@@ -81,13 +81,13 @@ const loginUser = asyncHandler(async (req, res) => {
   // save refresh token in db
   // return res
 
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if ([username, password].some((field) => field?.trim() === "")) {
+  if ([email, password].some((field) => field?.trim() === "")) {
     throw new ApiError(400, "All fields are required");
   }
 
-  const user = await User.findOne({ username: username.toLowerCase() });
+  const user = await User.findOne({ email: email.toLowerCase() });
 
   if (!user) {
     throw new ApiError(404, "User not found");
@@ -221,9 +221,15 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+  const user = req.body._id;
+  const userDetails = await User.findById(req.user._id).select("-password");
+
+  if (!userDetails) {
+    throw new ApiError(404, "Cannot retrive user data");
+  }
   return res
     .status(200)
-    .json(new ApiResponse(200, req.user, "User fetched successfully"));
+    .json(new ApiResponse(200, userDetails, "User fetched successfully"));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -249,11 +255,6 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Account details updated successfully"));
 });
 
-const test = asyncHandler(async (req, res) => {
-  res.status(200).json({
-    message: "ok",
-  });
-});
 export {
   registerUser,
   loginUser,
